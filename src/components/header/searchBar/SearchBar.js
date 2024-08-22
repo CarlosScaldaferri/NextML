@@ -10,7 +10,7 @@ const SearchBar = () => {
       <div className="h-full w-1 border"></div>
       <Imput
         type="text"
-        className="flex flex-grow m-3 w-max focus:outline-none"
+        className="flex flex-grow m-3 w-full max-w-full min-w-[35px] focus:outline-none"
         placeholder="Pesquisar..."
       />
       <div className="h-full w-1 border"></div>
