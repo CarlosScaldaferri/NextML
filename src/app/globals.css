@@ -2,32 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Ajuste o fundo e a cor do texto do input autofill usando cores do Tailwind */
+input:-webkit-autofill {
+  background-color: theme(
+    "colors.background.default"
+  ) !important; /* Use a cor de fundo do Tailwind */
+  color: theme(
+    "colors.text.primary"
+  ) !important; /* Use a cor do texto do Tailwind */
+  -webkit-box-shadow: 0 0 0px 1000px theme("colors.Input.background") inset !important; /* Garante que o fundo seja o mesmo */
+  -webkit-text-fill-color: theme(
+    "colors.text.primary"
+  ) !important; /* Cor do texto */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+input:-webkit-autofill:focus {
+  background-color: theme("colors.Input.background") !important;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+input:-webkit-autofill:hover {
+  background-color: theme("colors.Input.background") !important;
+}
+
+input:-webkit-autofill:active {
+  background-color: theme("colors.Input.background") !important;
 }

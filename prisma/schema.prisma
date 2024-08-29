@@ -1,0 +1,86 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// USER AND ACCESS CONTROL INI
+model User {
+  id         Int         @id @default(autoincrement())
+  userName   String      @db.Text
+  password   String      @db.Text
+  emails     Email[]
+  addresses  Address[]
+  telephones Telephone[]
+  roles      UserRole[]
+}
+
+model Email {
+  id     Int     @id @default(autoincrement())
+  userId Int
+  email  String  @db.Text
+  isMain Boolean
+  user   User    @relation(fields: [userId], references: [id])
+}
+
+model Address {
+  id         Int     @id @default(autoincrement())
+  userId     Int
+  zipCode    Int
+  street     String  @db.Text
+  number     Int
+  complement String  @db.Text
+  city       String  @db.Text
+  state      String  @db.Text
+  isMain     Boolean
+  user       User    @relation(fields: [userId], references: [id])
+}
+
+model Telephone {
+  id          Int     @id @default(autoincrement())
+  userId      Int
+  countryCode Int
+  stateCode   Int
+  number      Int
+  type        String  @db.Text
+  isMain      Boolean
+  user        User    @relation(fields: [userId], references: [id])
+}
+
+model Role {
+  id      Int        @id @default(autoincrement())
+  name    String     @db.Text
+  isAdmin Boolean
+  users   UserRole[]
+  rules   Rule[]
+}
+
+model UserRole {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  roleId Int
+  user   User @relation(fields: [userId], references: [id])
+  role   Role @relation(fields: [roleId], references: [id])
+}
+
+model Path {
+  id    Int    @id @default(autoincrement())
+  path  String @db.Text
+  rules Rule[]
+}
+
+model Rule {
+  id     Int     @id @default(autoincrement())
+  roleId Int
+  pathId Int
+  create Boolean
+  read   Boolean
+  update Boolean
+  delete Boolean
+  role   Role    @relation(fields: [roleId], references: [id])
+  path   Path    @relation(fields: [pathId], references: [id])
+}
+// USER AND ACCESS CONTROL END
