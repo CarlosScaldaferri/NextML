@@ -7,3 +7,29 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Ajuste o fundo e a cor do texto do input autofill usando cores do Tailwind */
+input:-webkit-autofill {
+  background-color: theme(
+    "colors.background.default"
+  ) !important; /* Use a cor de fundo do Tailwind */
+  color: theme(
+    "colors.text.primary"
+  ) !important; /* Use a cor do texto do Tailwind */
+  -webkit-box-shadow: 0 0 0px 1000px theme("colors.Input.background") inset !important; /* Garante que o fundo seja o mesmo */
+  -webkit-text-fill-color: theme(
+    "colors.text.primary"
+  ) !important; /* Cor do texto */
+}
+
+input:-webkit-autofill:focus {
+  background-color: theme("colors.Input.background") !important;
+}
+
+input:-webkit-autofill:hover {
+  background-color: theme("colors.Input.background") !important;
+}
+
+input:-webkit-autofill:active {
+  background-color: theme("colors.Input.background") !important;
+}

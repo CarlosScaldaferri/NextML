@@ -1,4 +1,4 @@
 const Main = () => {
-  return <div className="bg-blue-bgWeak min-h-screen"></div>;
+  return <div></div>;
 };
 export default Main;

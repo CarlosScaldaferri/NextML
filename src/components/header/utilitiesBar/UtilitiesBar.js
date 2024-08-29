@@ -8,13 +8,13 @@ const UtilitiesBar = () => {
         src="/img/favorites.png"
         width={30}
         height={30}
-        className="w-8 h-8 hidden lg:flex"
+        className="w-8 h-8 hidden sm:flex"
       />
       <Image
         src="/img/sac.png"
         width={30}
         height={30}
-        className="w-8 h-8 hidden lg:flex"
+        className="w-8 h-8 hidden sm:flex"
       />
     </div>
   );

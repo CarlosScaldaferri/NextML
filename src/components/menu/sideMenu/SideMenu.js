@@ -1,23 +1,46 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SubMenu from "../subMenu/SubMenu";
 import PainelMultLevel from "../painelMultLevel/PainelMultLevel";
+import Image from "next/image";
 
 const SideMenu = ({
   menu,
   level = 0,
   top = 0,
-  left = 0,
+  right = 0,
   width = 0,
-  visible = null,
+  setShowSideMenu = null,
 }) => {
   const [activeMenu, setActiveMenu] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const ulRef = useRef(null);
   const liRef = useRef({});
+  const calcStyle = () => {
+    if (windowWidth < 640) {
+      return { top: `${top}px`, right: `${right}px`, width: `${width}px` };
+    } else {
+      return { top: `${top}px`, right: `${right}px` };
+    }
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <ul
       ref={ulRef}
-      style={{ top: `${top}px`, left: `${left}px`, width: `${width}px` }}
-      className="absolute text-black bg-blue-weak items-start justify-start cursor-pointer border border-white"
+      style={calcStyle()}
+      className={`
+        bg-nav-background
+        text-nav-text
+        absolute bg-blue-9 items-start justify-start cursor-pointer`}
     >
       {menu?.map((item, index) => (
         <li
@@ -25,40 +48,60 @@ const SideMenu = ({
             liRef.current[item.id] = el;
           }}
           key={item.id}
-          className="flex whitespace-nowrap flex-grow items-center h-8 pl-3 pr-10 hover:text-white hover:bg-blue-strong"
+          className="
+          hover:bg-nav-backgroundHover
+          hover:text-nav-textHover 
+          flex whitespace-nowrap flex-grow items-center h-8 pl-3 pr-10 hover:text-white-0 hover:bg-blue-6"
           onMouseEnter={() => {
-            visible(true);
             setActiveMenu(item.id);
+            setShowSideMenu(true);
           }}
           onMouseLeave={() => {
-            visible(false);
             setActiveMenu(null);
+            setShowSideMenu(false);
           }}
         >
-          {item.title}
-          {activeMenu === item.id &&
-            item.submenus &&
-            item.submenus.length > 0 && (
-              <div className="hidden sm:block">
-                <SubMenu
-                  subMenu={item.submenus}
-                  level={level + 1}
-                  left={liRef.current[activeMenu].getBoundingClientRect().width}
-                  top={
-                    liRef.current[activeMenu].getBoundingClientRect().height *
-                    index
-                  }
+          {
+            <div className="flex min-w-[24px] w-4 pr-2">
+              {item.img && (
+                <Image
+                  src={item.img}
+                  width={16}
+                  height={16}
+                  alt={item.title}
+                  style={{
+                    filter: activeMenu === item.id ? "invert(1)" : "none",
+                  }}
                 />
-              </div>
-            )}
+              )}
+            </div>
+          }
+          {item.title}
 
+          {activeMenu === item.id && (
+            <div className="hidden sm:block">
+              <SubMenu
+                subMenu={item.submenus}
+                level={level + 1}
+                left={
+                  liRef.current[activeMenu]?.getBoundingClientRect().width || 0
+                }
+                top={
+                  (liRef.current[activeMenu]?.getBoundingClientRect().height ||
+                    0) * index
+                }
+              />
+            </div>
+          )}
+
+          {/* PainelMultLevel para dispositivos móveis */}
           {activeMenu === item.id && (
             <div className="block sm:hidden">
               <PainelMultLevel
                 menu={item.submenus}
                 left={0}
-                top={ulRef.current.getBoundingClientRect().height}
-                width={ulRef.current.getBoundingClientRect().width}
+                top={ulRef.current?.getBoundingClientRect().height || 0}
+                width={ulRef.current?.getBoundingClientRect().width || 0}
               />
             </div>
           )}
@@ -67,4 +110,5 @@ const SideMenu = ({
     </ul>
   );
 };
+
 export default SideMenu;

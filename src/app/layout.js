@@ -1,7 +1,8 @@
+import React from "react";
 import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
-import Main from "@/components/main/Main";
+import { HeaderProvider } from "@/context";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,15 +12,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
-      <body className="font-proximaNova">
-        <div className="font-proximaNova">
-          <div className="w-full bg-blue-strong">
-            <Header />
-          </div>
-          <Main />
+      <body className="bg-background-default font-Arial">
+        <HeaderProvider>
+          <Header />
           {children}
           <Footer />
-        </div>
+        </HeaderProvider>
       </body>
     </html>
   );

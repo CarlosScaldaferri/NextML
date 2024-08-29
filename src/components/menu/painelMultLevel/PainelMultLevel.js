@@ -1,10 +1,13 @@
+import Image from "next/image";
+
 const PainelMultLevel = ({ menu, width = 200, top = 0, left = 0 }) => {
   // Função para renderizar o menu recursivamente
   const renderMenu = (items, level = 0) => {
     // Alterna as cores entre os níveis com tons de azul mais suaves usando Tailwind
     const backgroundColorClass =
-      level % 2 === 0 ? "bg-blue-100" : "bg-blue-200"; // Tons de azul mais suaves
+      level % 2 === 0 ? "bg-nav-background__" : "bg-nav-background_"; // Tons de azul mais suaves
     const textColorClass = "text-black"; // Texto preto para ambos os níveis
+
     return (
       <div className={`${backgroundColorClass} ${textColorClass} p-2`}>
         {items.map((item) => {
@@ -15,9 +18,9 @@ const PainelMultLevel = ({ menu, width = 200, top = 0, left = 0 }) => {
               <div
                 className={`${
                   isLeaf
-                    ? "font-normal cursor-pointer hover:bg-blue-500 hover:text-white"
+                    ? "font-normal cursor-pointer hover:text-white"
                     : "font-bold cursor-not-allowed"
-                } transition duration-300 p-2`}
+                } p-2`}
                 onClick={() => {
                   if (isLeaf) {
                     window.location.href = item.href || "#"; // Ação de clique para nós folha
@@ -25,7 +28,21 @@ const PainelMultLevel = ({ menu, width = 200, top = 0, left = 0 }) => {
                 }}
               >
                 {item.submenus && item.submenus.length > 0 ? (
-                  <span>{item.title}</span>
+                  <div className="flex">
+                    {item.img && (
+                      <div className="flex min-w-[24px] w-4 pr-2">
+                        {
+                          <Image
+                            src={item.img}
+                            width={16}
+                            height={16}
+                            alt={item.title}
+                          />
+                        }
+                      </div>
+                    )}
+                    <span>{item.title}</span>
+                  </div>
                 ) : (
                   <a
                     href={item.href || "#"}
@@ -34,7 +51,22 @@ const PainelMultLevel = ({ menu, width = 200, top = 0, left = 0 }) => {
                       if (!isLeaf) e.preventDefault(); // Impede o clique para itens não folha
                     }}
                   >
-                    {item.title}
+                    <div className="flex">
+                      {item.img && (
+                        <div className="flex pr-2">
+                          {
+                            <Image
+                              src={item.img}
+                              width={16}
+                              height={16}
+                              alt={item.title}
+                            />
+                          }
+                        </div>
+                      )}
+
+                      {item.title}
+                    </div>
                   </a>
                 )}
               </div>
@@ -54,7 +86,7 @@ const PainelMultLevel = ({ menu, width = 200, top = 0, left = 0 }) => {
 
   return (
     <div
-      className="absolute border border-white shadow-lg"
+      className="absolute shadow-lg"
       style={{
         width: `${width}px`,
         top: `${top}px`,
