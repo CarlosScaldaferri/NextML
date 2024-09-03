@@ -1,11 +1,11 @@
 import ProtectedRoute from "@/components/ProtectedRoute";
 
-const ProtectedPage = () => {
+const Dashboard = () => {
   return (
     <ProtectedRoute>
-      <h1>This is a protected page</h1>
+      <div>Dashboard Content</div>
     </ProtectedRoute>
   );
 };
 
-export default ProtectedPage;
+export default Dashboard;

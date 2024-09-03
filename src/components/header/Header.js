@@ -13,12 +13,12 @@ const Header = () => {
 
   return (
     <header
-      className={`bg-header-background sm:gap-x-5 grid grid-cols-[auto_auto_minmax(0,1fr)_auto_auto] grid-rows-2 pt-2 pb-1`}
+      className={`bg-header-background gap-x-2 sm:gap-x-5 grid grid-cols-[auto_auto_minmax(0,1fr)_auto_auto] grid-rows-2 pt-2 pb-1`}
     >
       <div
         className={`${
           standBy ? "block" : "hidden"
-        } flex justify-center items-center row-start-1 row-end-3 col-start-1 col-end-5 pr-2 pl-2 sm:pl-7`}
+        } flex justify-center items-center row-start-1 row-end-3 col-start-1 col-end-5 pl-2 sm:pl-7`}
       >
         <Logo />
       </div>
@@ -26,10 +26,11 @@ const Header = () => {
       <div
         className={`${
           standBy ? "hidden" : "block"
-        } flex justify-end row-1 col-1 pr-2 pl-2 sm:pl-7`}
+        } flex justify-end row-1 col-1 pl-2 sm:pl-7`}
       >
         <Logo />
       </div>
+
       <div className={`${standBy ? "hidden" : "block"} row-1 col-2`}>
         <Adress />
       </div>

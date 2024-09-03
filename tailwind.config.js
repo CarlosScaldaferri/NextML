@@ -46,8 +46,9 @@ export const theme = {
       },
       // Cores para Textos
       text: {
-        primary: "#065f46", // Verde escuro para o texto principal
-        secondary: "#6ee7b7", // Verde claro para o texto secundário
+        primary: "#065f46",
+        secondary: "#6ee7b7",
+        terciaria: "#10b981",
       },
       // Cores para Bordas
       border: {

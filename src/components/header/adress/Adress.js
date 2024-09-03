@@ -2,17 +2,14 @@ import Image from "next/image";
 
 const Adress = () => {
   return (
-    <aside className="text-white font-Arial gap-4 justify-center items-center">
-      <div className="hidden lg:flex w-[16px] h-[16px]">
-        <Image
-          src="/img/Adress.png"
-          alt="Adress"
-          width={16}
-          height={16}
-          className="w-full"
-        />
-      </div>
-      <div className="hidden lg:flex">Atualizar CEP</div>
+    <aside className="flex text-white font-Arial justify-center items-center">
+      <Image
+        src="/img/Adress.png"
+        alt="Adress"
+        width={40}
+        height={40}
+        className="w-10 h-10"
+      />
     </aside>
   );
 };
